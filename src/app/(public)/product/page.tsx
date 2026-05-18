@@ -2,8 +2,8 @@ import prisma from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
 
 export const metadata = {
-  title: "Produk Kami | Sentra Telur Ciampea",
-  description: "Daftar produk telur ayam berkualitas dari Sentra Telur Ciampea",
+  title: "Produk Kami | BANG TELOR Jatiasih",
+  description: "Daftar produk telur ayam berkualitas dari BANG TELOR Jatiasih",
 };
 
 export default async function ProductPage() {
@@ -50,7 +50,7 @@ export default async function ProductPage() {
             Produk Kami
           </h1>
           <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed">
-            SENTRA TELUR: Farm Ciampea sebagai produsen telur melayani segala
+            BANG TELOR: Farm Jatiasih sebagai produsen telur melayani segala
             bentuk penjualan telur ayam segar dari skala kecil sampai besar
             termasuk distributor, agen, modern market, horeka, industri food and
             beverage, dan retailer. Area distribusi kami saat ini meliputi Jawa
@@ -69,3 +69,4 @@ export default async function ProductPage() {
     </main>
   );
 }
+

@@ -3,10 +3,10 @@ import prisma from "@/lib/prisma";
 export default async function AboutPage() {
   const about = await prisma.about.findUnique({ where: { id: 1 } });
 
-  const title = about?.title || "Tentang SENTRA TELUR: Farm Ciampea";
+  const title = about?.title || "Tentang BANG TELOR: Farm Jatiasih";
   const description =
     about?.description ||
-    "SENTRA TELUR: Farm Ciampea konsisten dalam memberikan produk terbaik kepada para konsumen. Kami memiliki standar operasional prosedur yang ketat, mulai dari penerimaan bahan baku pakan, produksi pakan ayam, manajemen produksi telur, penelitian kualitas telur, sampai dengan distribusi telur langsung ke tangan konsumen.\n\nKami melayani segala bentuk penjualan dari skala kecil sampai besar termasuk industri food and beverage, HOREKA, dan modern market dengan distribusi mencakup pulau Jawa, Bali, hingga Nusa Tenggara.";
+    "BANG TELOR: Farm Jatiasih konsisten dalam memberikan produk terbaik kepada para konsumen. Kami memiliki standar operasional prosedur yang ketat, mulai dari penerimaan bahan baku pakan, produksi pakan ayam, manajemen produksi telur, penelitian kualitas telur, sampai dengan distribusi telur langsung ke tangan konsumen.\n\nKami melayani segala bentuk penjualan dari skala kecil sampai besar termasuk industri food and beverage, HOREKA, dan modern market dengan distribusi mencakup pulau Jawa, Bali, hingga Nusa Tenggara.";
   const image =
     about?.image ||
     "https://images.unsplash.com/photo-1598928506311-c55d4c353f58?q=80&w=800&auto=format&fit=crop";
@@ -37,3 +37,4 @@ export default async function AboutPage() {
     </main>
   );
 }
+

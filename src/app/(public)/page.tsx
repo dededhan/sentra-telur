@@ -23,8 +23,8 @@ export default async function Home() {
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight">
-            {settings?.heroHeadline || "Selamat datang di SENTRA TELUR: Farm Ciampea"}
-          </h1>
+            {settings?.heroHeadline || "Selamat datang di BANG TELOR: Farm Jatiasih"}
+          </h1> 
           <p className="mt-6 text-xl text-gray-200">
             Dipercaya Sejak Tahun 2006 Sebagai Produsen & Supplier Telur Ayam Kebutuhan Industri Berkualitas
           </p>
@@ -42,7 +42,7 @@ export default async function Home() {
         <div className="max-w-4xl mx-auto space-y-8">
           <h2 className="text-4xl font-extrabold">Komitmen Pada Proses</h2>
           <p className="text-xl font-light leading-relaxed">
-            SENTRA TELUR: Farm Ciampea konsisten dalam memberikan produk terbaik kepada para konsumen. Kami memiliki standar operasional prosedur yang ketat, mulai dari penerimaan bahan baku pakan, produksi pakan ayam, manajemen produksi telur, penelitian kualitas telur, sampai dengan distribusi telur langsung ke tangan konsumen.
+            BANG TELOR: Farm Jatiasih konsisten dalam memberikan produk terbaik kepada para konsumen. Kami memiliki standar operasional prosedur yang ketat, mulai dari penerimaan bahan baku pakan, produksi pakan ayam, manajemen produksi telur, penelitian kualitas telur, sampai dengan distribusi telur langsung ke tangan konsumen.
           </p>
           <Link href="/product" className="inline-block mt-8 px-8 py-4 bg-white text-orange-900 font-bold rounded-full hover:bg-gray-100 transition shadow-xl">
             Lihat Produk Kami
@@ -51,7 +51,7 @@ export default async function Home() {
       </section>
 
       {/* 5. VIDEO SECTION */}
-      <section className="py-20 px-4 max-w-5xl mx-auto text-center">
+      <section className="py-20 px-4 sm:px-8 w-full max-w-[1400px] mx-auto text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-10">The Home For Our Farm</h2>
         <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl bg-gray-200 border border-gray-300">
           {settings?.videoUrl ? (
@@ -75,3 +75,4 @@ export default async function Home() {
     </main>
   );
 }
+

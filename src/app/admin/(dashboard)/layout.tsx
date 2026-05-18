@@ -1,7 +1,7 @@
 import Sidebar from "@/components/admin/Sidebar";
 
 export const metadata = {
-  title: "Admin Panel | Sentra Telur",
+  title: "Admin Panel | BANG TELOR",
   robots: "noindex, nofollow", // Mencegah Google index halaman admin
 };
 
@@ -29,3 +29,4 @@ export default function AdminLayout({
     </div>
   );
 }
+

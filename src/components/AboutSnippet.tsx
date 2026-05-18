@@ -4,7 +4,7 @@ export default function AboutSnippet({ about }: { about: any }) {
   const title = about?.title || "Tentang Kami";
   const description =
     about?.description ||
-    "SENTRA TELUR: Farm Ciampea adalah peternakan ayam petelur modern yang berdedikasi untuk menghasilkan telur berkualitas tinggi. Kami menerapkan standar ketat dalam setiap proses produksi mulai dari pemilihan pakan hingga pengemasan untuk memastikan kesegaran gizi yang sampai ke meja makan Anda.";
+    "BANG TELOR: Farm Jatiasih adalah peternakan ayam petelur modern yang berdedikasi untuk menghasilkan telur berkualitas tinggi. Kami menerapkan standar ketat dalam setiap proses produksi mulai dari pemilihan pakan hingga pengemasan untuk memastikan kesegaran gizi yang sampai ke meja makan Anda.";
   const image =
     about?.image ||
     "https://images.unsplash.com/photo-1598928506311-c55d4c353f58?q=80&w=800&auto=format&fit=crop";
@@ -15,7 +15,7 @@ export default function AboutSnippet({ about }: { about: any }) {
         <img
           src={image}
           className="rounded-2xl shadow-lg object-cover w-full h-[400px]"
-          alt="Tentang Sentra Telur"
+          alt="Tentang BANG TELOR"
         />
       </div>
       <div className="w-full md:w-1/2 space-y-6">
@@ -33,3 +33,4 @@ export default function AboutSnippet({ about }: { about: any }) {
     </section>
   );
 }
+

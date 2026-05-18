@@ -14,7 +14,7 @@ export async function generateMetadata({
 
   return {
     title: product
-      ? `${product.title} | Sentra Telur Ciampea`
+      ? `${product.title} | Bang Telor Jatiasih`
       : "Produk Tidak Ditemukan",
   };
 }
@@ -68,7 +68,7 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const waMessage = `Halo, saya tertarik dengan produk ${product.title} dari Sentra Telur. Boleh minta info detail dan harganya?`;
+  const waMessage = `Halo, saya tertarik dengan produk ${product.title} dari Bang Telor. Boleh minta info detail dan harganya?`;
   const waURL = `https://wa.me/6289654032950?text=${encodeURIComponent(waMessage)}`;
 
   return (

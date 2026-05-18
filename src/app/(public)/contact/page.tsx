@@ -51,12 +51,12 @@ export default async function ContactPage() {
                   WhatsApp
                 </h3>
                 <a
-                  href="https://wa.me/6289654032950"
+                  href={`https://wa.me/${settings?.whatsappNumber?.replace(/[^0-9]/g, '') || '6289654032950'}?text=${encodeURIComponent(settings?.whatsappText || '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-lg text-[#25D366] font-light hover:underline block"
                 >
-                  +62 89654032950
+                  {settings?.whatsappNumber || "+62 89654032950"}
                 </a>
               </div>
             </div>
