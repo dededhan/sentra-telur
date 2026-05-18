@@ -8,13 +8,13 @@ export default function PublicScrollReveal() {
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     const targets = Array.from(
       document.querySelectorAll<HTMLElement>(
-        "main section, main > div, main article, main .grid > *"
-      )
+        "main section, main > div, main article, main .grid > *",
+      ),
     ).filter((el) => !el.hasAttribute("data-no-reveal"));
 
     if (targets.length === 0) {
@@ -45,7 +45,7 @@ export default function PublicScrollReveal() {
       {
         threshold: 0.15,
         rootMargin: "0px 0px -10% 0px",
-      }
+      },
     );
 
     targets.forEach((el) => observer.observe(el));

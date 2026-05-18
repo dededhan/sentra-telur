@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import ProductCard from "@/components/ProductCard";
+import Link from "next/link";
 
 export const metadata = {
   title: "Produk Kami | BANG TELOR Jatiasih",
@@ -42,30 +43,44 @@ export default async function ProductPage() {
   const products = dbProducts.length > 0 ? dbProducts : defaultProducts;
 
   return (
-    <main className="flex-grow bg-gray-50 py-24 px-4 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        {/* Header/Intro */}
-        <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-            Produk Kami
+    <main className="flex-grow bg-white">
+      {/* Hero Section */}
+      <section className="relative w-full min-h-[50vh] flex items-center justify-center bg-gradient-to-br from-orange-600 to-amber-600 px-4 py-20 text-white">
+        <div className="max-w-5xl mx-auto text-center space-y-6 z-10">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
+            Produk Unggulan Kami
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed">
-            BANG TELOR: Farm Jatiasih sebagai produsen telur melayani segala
-            bentuk penjualan telur ayam segar dari skala kecil sampai besar
-            termasuk distributor, agen, modern market, horeka, industri food and
-            beverage, dan retailer. Area distribusi kami saat ini meliputi Jawa
-            Tengah, Jawa Barat, JABODETABEK, Kalimantan Barat, Bali, Nusa
-            Tenggara Barat dan Nusa Tenggara Timur.
+          <p className="text-lg md:text-xl font-light max-w-3xl mx-auto">
+            Telur berkualitas premium dengan standar ketat untuk memenuhi kebutuhan industri Indonesia
           </p>
         </div>
+      </section>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {products.map((p) => (
-            <ProductCard key={p.id || p.slug} product={p} />
-          ))}
+      {/* Content Section */}
+      <section className="py-24 px-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          {/* Description */}
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <p className="text-lg text-gray-600 font-light leading-relaxed">
+              BANG TELOR: Farm Jatiasih melayani segala bentuk penjualan telur ayam segar dari skala kecil hingga besar untuk distributor, agen, modern market, HOREKA, industri food and beverage, dan retailer. Jangkauan distribusi kami mencakup Jawa Tengah, Jawa Barat, JABODETABEK, Kalimantan Barat, Bali, Nusa Tenggara Barat, dan Nusa Tenggara Timur.
+            </p>
+          </div>
+
+          {/* Product Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
+            {products.map((p) => (
+              <ProductCard key={p.id || p.slug} product={p} />
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <Link href="/contact" className="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+              Pesan Sekarang
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
