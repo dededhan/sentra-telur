@@ -51,7 +51,8 @@ export default async function ProductPage() {
             Produk Unggulan Kami
           </h1>
           <p className="text-lg md:text-xl font-light max-w-3xl mx-auto">
-            Telur berkualitas premium dengan standar ketat untuk memenuhi kebutuhan industri Indonesia
+            Telur berkualitas premium dengan standar ketat untuk memenuhi
+            kebutuhan industri Indonesia
           </p>
         </div>
       </section>
@@ -62,7 +63,12 @@ export default async function ProductPage() {
           {/* Description */}
           <div className="text-center max-w-3xl mx-auto mb-20">
             <p className="text-lg text-gray-600 font-light leading-relaxed">
-              BANG TELOR: Farm Jatiasih melayani segala bentuk penjualan telur ayam segar dari skala kecil hingga besar untuk distributor, agen, modern market, HOREKA, industri food and beverage, dan retailer. Jangkauan distribusi kami mencakup Jawa Tengah, Jawa Barat, JABODETABEK, Kalimantan Barat, Bali, Nusa Tenggara Barat, dan Nusa Tenggara Timur.
+              BANG TELOR: Farm Jatiasih melayani segala bentuk penjualan telur
+              ayam segar dari skala kecil hingga besar untuk distributor, agen,
+              modern market, HOREKA, industri food and beverage, dan retailer.
+              Jangkauan distribusi kami mencakup Jawa Tengah, Jawa Barat,
+              JABODETABEK, Kalimantan Barat, Bali, Nusa Tenggara Barat, dan Nusa
+              Tenggara Timur.
             </p>
           </div>
 
@@ -75,7 +81,10 @@ export default async function ProductPage() {
 
           {/* CTA */}
           <div className="text-center">
-            <Link href="/contact" className="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+            <Link
+              href="/contact"
+              className="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+            >
               Pesan Sekarang
             </Link>
           </div>
@@ -84,4 +93,3 @@ export default async function ProductPage() {
     </main>
   );
 }
-

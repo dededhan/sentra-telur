@@ -21,7 +21,8 @@ export default async function AboutPage() {
             {title}
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 font-light max-w-3xl mx-auto">
-            Misi kami adalah memberikan telur berkualitas tinggi dengan standar internasional
+            Misi kami adalah memberikan telur berkualitas tinggi dengan standar
+            internasional
           </p>
         </div>
       </section>
@@ -46,7 +47,10 @@ export default async function AboutPage() {
             <div className="text-lg text-gray-600 leading-relaxed whitespace-pre-wrap font-light space-y-6">
               {description}
             </div>
-            <Link href="/contact" className="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+            <Link
+              href="/contact"
+              className="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+            >
               Hubungi Kami
             </Link>
           </div>
@@ -55,4 +59,3 @@ export default async function AboutPage() {
     </main>
   );
 }
-
