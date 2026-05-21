@@ -61,3 +61,12 @@ model FarmImage {
   caption   String?
   createdAt DateTime @default(now())
 }
+
+model SustainabilitySection {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  imageUrl    String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}

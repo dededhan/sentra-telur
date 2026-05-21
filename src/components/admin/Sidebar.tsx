@@ -13,7 +13,8 @@ import {
   Egg,
   Info,
   Menu,
-  X
+  X,
+  Leaf
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -25,6 +26,7 @@ export default function Sidebar() {
     { name: "Kelola Produk", icon: Package, href: "/admin/product" },
     { name: "Kelola FAQ", icon: HelpCircle, href: "/admin/faq" },
     { name: "Tentang Kami", icon: Info, href: "/admin/about" },
+    { name: "Sustainability", icon: Leaf, href: "/admin/sustainability" },
     { name: "Pengaturan Profil", icon: Settings, href: "/admin/settings" },
   ];
 
