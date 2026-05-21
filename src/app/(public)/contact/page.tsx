@@ -130,7 +130,7 @@ export default async function ContactPage() {
                   <img 
                     src={img.imageUrl} 
                     alt={img.caption || "Lokasi Peternakan BANG TELOR"} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    className="w-full h-full object-cover" 
                   />
                 </div>
               ))}
@@ -140,13 +140,17 @@ export default async function ContactPage() {
       </section>
 
       {/* 3. CUSTOM LARGE CARD SECTION */}
-      <section className="w-full relative min-h-[450px] md:min-h-[550px] bg-gray-100 overflow-hidden border-t border-gray-100">
-        {/* Background Image (Customizable by admin) */}
-        <img 
-          src={settings?.contactCardImage || "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&q=80&w=1920"} 
-          alt="Farm Banner" 
-          className="absolute inset-0 w-full h-full object-cover" 
-        />
+      <section className="py-20 px-4 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative w-full rounded-[40px] overflow-hidden shadow-2xl min-h-[450px] bg-gray-100">
+            {/* Background Image (Customizable by admin) */}
+            <img 
+              src={settings?.contactCardImage || "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&q=80&w=1920"} 
+              alt="Farm Banner" 
+              className="absolute inset-0 w-full h-full object-cover" 
+            />
+          </div>
+        </div>
       </section>
     </main>
   );
