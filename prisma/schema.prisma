@@ -22,6 +22,7 @@ model GlobalSettings {
   phone           String
   email           String
   mapEmbedUrl     String
+  contactCardImage String?
 }
 
 model About {
@@ -52,4 +53,11 @@ model Product {
   description String   @db.Text
   slug        String   @unique
   createdAt   DateTime @default(now())
+}
+
+model FarmImage {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  caption   String?
+  createdAt DateTime @default(now())
 }

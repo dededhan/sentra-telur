@@ -27,10 +27,12 @@ export async function updateGlobalSettings(formData: FormData) {
     const mapEmbedUrl = formData.get("mapEmbedUrl") as string;
     
     const heroImage = formData.get("heroImage") as File | null;
+    const contactCardImage = formData.get("contactCardImage") as File | null;
 
     // Ambil setting saat ini
     const currentSettings = await prisma.globalSettings.findFirst();
     let imageUrl = currentSettings?.heroImage || "";
+    let contactCardImageUrl = currentSettings?.contactCardImage || "";
 
     // Proses upload jika ada gambar Hero baru yang disubmit
     if (heroImage && heroImage.size > 0) {
@@ -67,6 +69,41 @@ export async function updateGlobalSettings(formData: FormData) {
       }
     }
 
+    // Proses upload jika ada gambar Card Besar baru yang disubmit
+    if (contactCardImage && contactCardImage.size > 0) {
+      const fileExt = contactCardImage.name.split('.').pop();
+      const fileName = `contact-card-${Date.now()}.${fileExt}`;
+      
+      const arrayBuffer = await contactCardImage.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const { error: uploadError } = await supabase.storage
+        .from('assets')
+        .upload(fileName, buffer, {
+          cacheControl: '3600',
+          upsert: false,
+          contentType: contactCardImage.type
+        });
+
+      if (uploadError) {
+         return { success: false, error: `Gagal upload Gambar Card Besar: ${uploadError.message}` };
+      }
+      
+      const { data: { publicUrl } } = supabase.storage
+        .from('assets')
+        .getPublicUrl(fileName);
+        
+      contactCardImageUrl = publicUrl;
+
+      // Hapus gambar card lama dari storage bucket 'assets'
+      if (currentSettings?.contactCardImage) {
+        const oldFileName = currentSettings.contactCardImage.split('/').pop();
+        if (oldFileName) {
+           await supabase.storage.from('assets').remove([oldFileName]);
+        }
+      }
+    }
+
     const data = {
       heroHeadline,
       videoUrl,
@@ -77,6 +114,7 @@ export async function updateGlobalSettings(formData: FormData) {
       email,
       mapEmbedUrl,
       heroImage: imageUrl,
+      contactCardImage: contactCardImageUrl,
     };
 
     // Update jika sudah ada, Create jika belum (karena cuma ada 1 baris setting)
@@ -96,6 +134,7 @@ export async function updateGlobalSettings(formData: FormData) {
 
     // Refresh semua rute agar perubahan kontak dan footer terlihat seketika
     revalidatePath("/", "layout"); 
+    revalidatePath("/contact");
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error?.message || "Gagal menyimpan pengaturan website" };
@@ -173,5 +212,73 @@ export async function deletePartner(id: number) {
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error?.message || "Gagal menghapus data partner" };
+  }
+}
+
+export async function addFarmLocationImage(formData: FormData) {
+  try {
+    const image = formData.get("image") as File | null;
+    const caption = formData.get("caption") as string || "";
+
+    if (!image || image.size === 0) {
+      return { success: false, error: "Gambar wajib diunggah." };
+    }
+
+    const fileExt = image.name.split('.').pop();
+    const fileName = `farm-${Date.now()}.${fileExt}`;
+    
+    const arrayBuffer = await image.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const { error: uploadError } = await supabase.storage
+      .from('assets')
+      .upload(fileName, buffer, {
+        cacheControl: '3600',
+        upsert: false,
+        contentType: image.type
+      });
+
+    if (uploadError) {
+      return { success: false, error: `Gagal upload gambar peternakan: ${uploadError.message}` };
+    }
+
+    const { data: { publicUrl } } = supabase.storage
+      .from('assets')
+      .getPublicUrl(fileName);
+
+    await prisma.farmImage.create({
+      data: {
+        imageUrl: publicUrl,
+        caption,
+      }
+    });
+
+    revalidatePath("/", "layout");
+    revalidatePath("/contact");
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error?.message || "Gagal menambahkan gambar peternakan" };
+  }
+}
+
+export async function deleteFarmLocationImage(id: number) {
+  try {
+    const existing = await prisma.farmImage.findUnique({ where: { id } });
+    if (!existing) return { success: false, error: "Gambar tidak ditemukan di database." };
+
+    const oldFileName = existing.imageUrl.split('/').pop();
+    if (oldFileName) {
+       await supabase.storage.from('assets').remove([oldFileName]);
+    }
+
+    await prisma.farmImage.delete({
+      where: { id },
+    });
+    
+    revalidatePath("/", "layout");
+    revalidatePath("/contact");
+    return { success: true };
+  } catch (error: any) {
+    return { success: false, error: error?.message || "Gagal menghapus gambar peternakan" };
   }
 }

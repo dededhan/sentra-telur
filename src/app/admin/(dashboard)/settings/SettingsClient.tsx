@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { updateGlobalSettings, addPartner, deletePartner } from "./actions";
+import { 
+  updateGlobalSettings, 
+  addPartner, 
+  deletePartner, 
+  addFarmLocationImage, 
+  deleteFarmLocationImage 
+} from "./actions";
 import { Loader2, Image as ImageIcon, Save, Plus, Trash2, MapPin, Phone, Mail, MessageSquare } from "lucide-react";
 
 type GlobalSettings = {
@@ -15,6 +21,7 @@ type GlobalSettings = {
   phone: string;
   email: string;
   mapEmbedUrl: string;
+  contactCardImage: string | null;
 };
 
 type Partner = {
@@ -24,12 +31,21 @@ type Partner = {
   order: number;
 };
 
+type FarmImage = {
+  id: number;
+  imageUrl: string;
+  caption: string | null;
+  createdAt: Date;
+};
+
 export default function SettingsClient({ 
   initialSettings, 
-  initialPartners 
+  initialPartners,
+  initialFarmImages = []
 }: { 
   initialSettings: GlobalSettings | null, 
-  initialPartners: Partner[] 
+  initialPartners: Partner[],
+  initialFarmImages?: FarmImage[]
 }) {
   // Global Settings State
   const [headline, setHeadline] = useState(initialSettings?.heroHeadline || "");
@@ -46,12 +62,24 @@ export default function SettingsClient({
   const [isSavingSettings, setIsSavingSettings] = useState(false);
   const heroInputRef = useRef<HTMLInputElement>(null);
 
+  // Large Card Banner (contactCardImage) State
+  const [contactCardImageFile, setContactCardImageFile] = useState<File | null>(null);
+  const [contactCardPreview, setContactCardPreview] = useState<string | null>(initialSettings?.contactCardImage || null);
+  const contactCardInputRef = useRef<HTMLInputElement>(null);
+
   // Partners State
   const [partnerName, setPartnerName] = useState("");
   const [partnerFile, setPartnerFile] = useState<File | null>(null);
   const [partnerPreview, setPartnerPreview] = useState<string | null>(null);
   const [isAddingPartner, setIsAddingPartner] = useState(false);
   const partnerInputRef = useRef<HTMLInputElement>(null);
+
+  // Farm Location Images State
+  const [farmImageFile, setFarmImageFile] = useState<File | null>(null);
+  const [farmImagePreview, setFarmImagePreview] = useState<string | null>(null);
+  const [farmCaption, setFarmCaption] = useState("");
+  const [isAddingFarmImage, setIsAddingFarmImage] = useState(false);
+  const farmImageInputRef = useRef<HTMLInputElement>(null);
 
   // Handlers for Global Settings
   const handleHeroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +94,20 @@ export default function SettingsClient({
       setHeroImageFile(file);
       const reader = new FileReader();
       reader.onloadend = () => setHeroPreview(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleContactCardChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Gambar Banner Hubungi Kami terlalu besar. Maksimal 5MB.");
+        return;
+      }
+      setContactCardImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => setContactCardPreview(reader.result as string);
       reader.readAsDataURL(file);
     }
   };
@@ -87,11 +129,15 @@ export default function SettingsClient({
     if (heroImageFile) {
       formData.append("heroImage", heroImageFile);
     }
+    if (contactCardImageFile) {
+      formData.append("contactCardImage", contactCardImageFile);
+    }
 
     const res = await updateGlobalSettings(formData);
     if (res.success) {
       alert("Pengaturan website berhasil disimpan!");
       setHeroImageFile(null); // Reset input file after success
+      setContactCardImageFile(null);
     } else {
       alert(res.error);
     }
@@ -148,6 +194,52 @@ export default function SettingsClient({
     }
   };
 
+  // Handlers for Farm Location Images
+  const handleFarmImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Gambar peternakan terlalu besar. Maksimal 5MB.");
+        return;
+      }
+      setFarmImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => setFarmImagePreview(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const saveFarmLocationImage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!farmImageFile) {
+      alert("Gambar wajib dipilih!");
+      return;
+    }
+
+    setIsAddingFarmImage(true);
+    const formData = new FormData();
+    formData.append("image", farmImageFile);
+    formData.append("caption", farmCaption);
+
+    const res = await addFarmLocationImage(formData);
+    if (res.success) {
+      setFarmCaption("");
+      setFarmImageFile(null);
+      setFarmImagePreview(null);
+      if (farmImageInputRef.current) farmImageInputRef.current.value = "";
+    } else {
+      alert(res.error);
+    }
+    setIsAddingFarmImage(false);
+  };
+
+  const removeFarmLocationImage = async (id: number) => {
+    if (confirm("Hapus gambar lokasi peternakan ini?")) {
+      const res = await deleteFarmLocationImage(id);
+      if (!res.success) alert(res.error);
+    }
+  };
+
   return (
     <div className="space-y-8 pb-12">
       
@@ -199,6 +291,30 @@ export default function SettingsClient({
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">URL Video YouTube</label>
               <input type="url" value={video} onChange={e => setVideo(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" placeholder="https://youtube.com/embed/..." />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Banner Hubungi Kami (Card Besar Kontak)</label>
+              <div 
+                className="w-full aspect-[21/9] relative rounded-xl border-2 border-dashed border-gray-300 hover:border-emerald-500 bg-gray-50 overflow-hidden cursor-pointer group transition-colors"
+                onClick={() => contactCardInputRef.current?.click()}
+              >
+                {contactCardPreview ? (
+                  <>
+                    <img src={contactCardPreview} alt="Contact Banner Preview" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="text-white font-medium bg-black/60 px-4 py-2 rounded-lg">Ganti Banner</span>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full text-gray-500">
+                    <ImageIcon className="w-8 h-8 mb-2 text-emerald-500" />
+                    <span className="text-sm font-medium">Klik untuk unggah banner kontak</span>
+                    <span className="text-xs mt-1">(Gambar Max 5MB)</span>
+                  </div>
+                )}
+                <input type="file" ref={contactCardInputRef} onChange={handleContactCardChange} accept="image/*" className="hidden" />
+              </div>
             </div>
           </div>
 
@@ -321,6 +437,94 @@ export default function SettingsClient({
                       onClick={() => removePartner(p.id)}
                       className="absolute -top-2 -right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 hover:scale-110 shadow-md"
                       title="Hapus Logo"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* 3. KARTU KELOLA GAMBAR LOKASI PETERNAKAN */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+          <h2 className="text-xl font-bold text-gray-800">3. Kelola Gambar Lokasi Peternakan (Tak Terbatas)</h2>
+        </div>
+        
+        <div className="p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Form Tambah Gambar Peternakan */}
+          <div className="lg:col-span-1 border-r-0 lg:border-r border-gray-100 lg:pr-8">
+            <h3 className="font-semibold text-gray-700 mb-4">Tambah Gambar Baru</h3>
+            <form onSubmit={saveFarmLocationImage} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 mb-1">Gambar Peternakan (Max 5MB)</label>
+                <div 
+                  className="w-full aspect-[4/3] relative rounded-xl border-2 border-dashed border-gray-300 hover:border-emerald-500 bg-gray-50 overflow-hidden cursor-pointer flex items-center justify-center p-2"
+                  onClick={() => farmImageInputRef.current?.click()}
+                >
+                  {farmImagePreview ? (
+                    <img src={farmImagePreview} alt="Farm Location Preview" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="text-center text-gray-400">
+                      <Plus className="w-6 h-6 mx-auto mb-1 text-emerald-500" />
+                      <span className="text-xs">Pilih Gambar</span>
+                    </div>
+                  )}
+                  <input type="file" ref={farmImageInputRef} onChange={handleFarmImageChange} accept="image/*" className="hidden" />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 mb-1">Caption / Keterangan Gambar (Opsional)</label>
+                <input 
+                  type="text" 
+                  value={farmCaption} 
+                  onChange={e => setFarmCaption(e.target.value)} 
+                  placeholder="Contoh: Kandang K3 Kebersihan Terjaga"
+                  className="w-full px-4 py-2 text-sm bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" 
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isAddingFarmImage || !farmImageFile}
+                className="w-full py-2.5 text-sm font-bold text-emerald-600 bg-emerald-50 border-2 border-emerald-100 rounded-xl hover:bg-emerald-100 hover:border-emerald-200 transition-colors disabled:opacity-50 disabled:grayscale flex items-center justify-center gap-2"
+              >
+                {isAddingFarmImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+                Unggah Gambar Peternakan
+              </button>
+            </form>
+          </div>
+
+          {/* Grid Gambar Terdaftar */}
+          <div className="lg:col-span-2">
+            <h3 className="font-semibold text-gray-700 mb-4">Gambar Terdaftar di Halaman Kontak</h3>
+            
+            {initialFarmImages.length === 0 ? (
+              <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                <p className="text-gray-500 text-sm">Belum ada gambar lokasi peternakan.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {initialFarmImages.map((img) => (
+                  <div key={img.id} className="group relative bg-white border border-gray-200 rounded-xl overflow-hidden flex flex-col hover:border-emerald-400 transition-colors shadow-sm h-full">
+                    <div className="aspect-[4/3] w-full bg-gray-50 overflow-hidden relative">
+                      <img src={img.imageUrl} alt={img.caption || "Farm Image"} className="w-full h-full object-cover" />
+                    </div>
+                    {img.caption && (
+                      <p className="p-3 text-xs font-semibold text-gray-700 text-center truncate border-t bg-gray-50/50 flex-grow" title={img.caption}>
+                        {img.caption}
+                      </p>
+                    )}
+                    
+                    <button
+                      onClick={() => removeFarmLocationImage(img.id)}
+                      className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 hover:scale-110 shadow-md z-10"
+                      title="Hapus Gambar"
                     >
                       <Trash2 className="w-3 h-3" />
                     </button>

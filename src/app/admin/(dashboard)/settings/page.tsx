@@ -10,6 +10,11 @@ export default async function AdminSettingsPage() {
       order: "asc",
     },
   });
+  const farmImages = await prisma.farmImage.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   return (
     <div className="space-y-6">
@@ -23,6 +28,7 @@ export default async function AdminSettingsPage() {
       <SettingsClient 
         initialSettings={globalSettings} 
         initialPartners={partners} 
+        initialFarmImages={farmImages}
       />
     </div>
   );

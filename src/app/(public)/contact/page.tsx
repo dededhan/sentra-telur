@@ -3,6 +3,9 @@ import { MapPin, Phone, Mail } from "lucide-react";
 
 export default async function ContactPage() {
   const settings = await prisma.globalSettings.findUnique({ where: { id: 1 } });
+  const farmImages = await prisma.farmImage.findMany({
+    orderBy: { createdAt: "desc" }
+  });
 
   const defaultMap =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126661.34007886475!2d107.0371427!3d-6.7360216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e685f67b5b5b293%3A0x401e8f1fc28c110!2sCikalongkulon%2C%20Cianjur%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid";
@@ -97,6 +100,84 @@ export default async function ContactPage() {
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-full"
               ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. LOKASI PETERNAKAN GALLERY SECTION */}
+      <section className="py-24 px-4 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900">
+              Lokasi Peternakan
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+              Melihat lebih dekat fasilitas peternakan <span className="font-semibold text-emerald-600">Bang Telor</span> yang higienis, bersih, dan berstandar tinggi
+            </p>
+          </div>
+
+          {farmImages.length === 0 ? (
+            <div className="text-center py-16 bg-white rounded-3xl border border-dashed border-gray-200 shadow-sm max-w-2xl mx-auto p-6">
+              <p className="text-gray-500 font-semibold">Gambar lokasi peternakan akan segera diunggah oleh admin.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {farmImages.map((img) => (
+                <div key={img.id} className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group border border-gray-100 flex flex-col h-full">
+                  <div className="aspect-[4/3] bg-gray-100 relative overflow-hidden flex-shrink-0">
+                    <img 
+                      src={img.imageUrl} 
+                      alt={img.caption || "Lokasi Peternakan BANG TELOR"} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    />
+                  </div>
+                  {img.caption && (
+                    <div className="p-5 border-t border-gray-50 flex-grow flex items-center justify-center">
+                      <p className="text-gray-700 font-semibold text-center text-sm md:text-base leading-relaxed">
+                        {img.caption}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* 3. CUSTOM LARGE CARD SECTION */}
+      <section className="py-20 px-4 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative w-full rounded-[40px] overflow-hidden shadow-2xl min-h-[450px] flex items-center bg-gray-900">
+            {/* Background Image (Customizable by admin) */}
+            <img 
+              src={settings?.contactCardImage || "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&q=80&w=1920"} 
+              alt="Farm Banner" 
+              className="absolute inset-0 w-full h-full object-cover opacity-60" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-transparent" />
+            
+            <div className="relative z-10 px-8 py-16 md:p-16 max-w-2xl space-y-6 text-white">
+              <span className="inline-block px-4 py-1.5 bg-emerald-500/30 border border-emerald-400/40 rounded-full text-emerald-300 font-bold text-xs uppercase tracking-wider">
+                Peternakan Modern
+              </span>
+              <h3 className="text-4xl md:text-5xl font-black leading-tight">
+                Komitmen Kenyamanan & Kebersihan
+              </h3>
+              <p className="text-lg text-gray-200 font-light leading-relaxed">
+                Kami menerapkan biosekuriti ketat dan manajemen kandang modern untuk menjamin setiap butir telur yang sampai ke tangan Anda bebas kuman, segar, dan bernutrisi tinggi.
+              </p>
+              <div className="pt-2">
+                <a 
+                  href={`https://wa.me/${settings?.whatsappNumber?.replace(/[^0-9]/g, "") || "6289654032950"}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 text-center"
+                >
+                  Hubungi WhatsApp Peternakan
+                </a>
+              </div>
             </div>
           </div>
         </div>
