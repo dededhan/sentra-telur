@@ -2,7 +2,12 @@ import Link from "next/link";
 import prisma from "@/lib/prisma";
 
 export default async function Footer() {
-  const settings = await prisma.globalSettings.findFirst();
+  let settings = null;
+  try {
+    settings = await prisma.globalSettings.findFirst();
+  } catch (error) {
+    console.error("Gagal memuat global settings di footer:", error);
+  }
 
   return (
     <footer className="bg-gray-900 text-gray-300 py-12 px-4 shadow-inner mt-auto">

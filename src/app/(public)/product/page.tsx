@@ -10,9 +10,14 @@ export const metadata = {
 };
 
 export default async function ProductPage() {
-  const dbProducts = await prisma.product.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  let dbProducts: any[] = [];
+  try {
+    dbProducts = await prisma.product.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.error("Gagal memuat data produk:", error);
+  }
 
   // Dummy products if DB is empty for initial showing
   const defaultProducts = [

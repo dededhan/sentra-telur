@@ -4,7 +4,12 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 
 export default async function AboutPage() {
-  const about = await prisma.about.findUnique({ where: { id: 1 } });
+  let about = null;
+  try {
+    about = await prisma.about.findUnique({ where: { id: 1 } });
+  } catch (error) {
+    console.error("Gagal memuat data about:", error);
+  }
 
   const title = about?.title || "Tentang BANG TELOR: Farm Jatiasih";
   const description =

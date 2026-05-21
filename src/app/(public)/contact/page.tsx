@@ -4,10 +4,17 @@ import prisma from "@/lib/prisma";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 export default async function ContactPage() {
-  const settings = await prisma.globalSettings.findUnique({ where: { id: 1 } });
-  const farmImages = await prisma.farmImage.findMany({
-    orderBy: { createdAt: "desc" }
-  });
+  let settings = null;
+  let farmImages: any[] = [];
+
+  try {
+    settings = await prisma.globalSettings.findUnique({ where: { id: 1 } });
+    farmImages = await prisma.farmImage.findMany({
+      orderBy: { createdAt: "desc" }
+    });
+  } catch (error) {
+    console.error("Gagal memuat data kontak:", error);
+  }
 
   const defaultMap =
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126661.34007886475!2d107.0371427!3d-6.7360216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e685f67b5b5b293%3A0x401e8f1fc28c110!2sCikalongkulon%2C%20Cianjur%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid";

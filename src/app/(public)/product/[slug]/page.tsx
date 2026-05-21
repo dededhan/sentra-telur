@@ -10,9 +10,14 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({
-    where: { slug },
-  });
+  let product = null;
+  try {
+    product = await prisma.product.findUnique({
+      where: { slug },
+    });
+  } catch (error) {
+    console.error("Gagal memuat metadata produk:", error);
+  }
 
   return {
     title: product
@@ -28,9 +33,14 @@ export default async function ProductDetailPage({
 }) {
   const { slug } = await params;
   // Try fetching from DB
-  let product = await prisma.product.findUnique({
-    where: { slug },
-  });
+  let product = null;
+  try {
+    product = await prisma.product.findUnique({
+      where: { slug },
+    });
+  } catch (error) {
+    console.error("Gagal memuat detail produk:", error);
+  }
 
   // Dummy fallback if no DB products match but the slug matches our dummy ones
   if (!product) {

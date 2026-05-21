@@ -9,14 +9,24 @@ import Link from "next/link";
 import { Award, Zap, Leaf, Users, TrendingUp, Shield } from "lucide-react";
 
 export default async function Home() {
-  const settings = await prisma.globalSettings.findUnique({ where: { id: 1 } });
-  const about = await prisma.about.findUnique({ where: { id: 1 } });
-  const partners = await prisma.partner.findMany({ orderBy: { order: "asc" } });
-  const faqs = await prisma.fAQ.findMany({ orderBy: { order: "asc" } });
-  const products = await prisma.product.findMany({
-    take: 3,
-    orderBy: { createdAt: "desc" },
-  });
+  let settings = null;
+  let about = null;
+  let partners: any[] = [];
+  let faqs: any[] = [];
+  let products: any[] = [];
+
+  try {
+    settings = await prisma.globalSettings.findUnique({ where: { id: 1 } });
+    about = await prisma.about.findUnique({ where: { id: 1 } });
+    partners = await prisma.partner.findMany({ orderBy: { order: "asc" } });
+    faqs = await prisma.fAQ.findMany({ orderBy: { order: "asc" } });
+    products = await prisma.product.findMany({
+      take: 3,
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (error) {
+    console.error("Gagal memuat data homepage:", error);
+  }
 
   return (
     <main className="flex flex-col font-sans bg-white flex-grow">
