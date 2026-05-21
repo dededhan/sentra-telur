@@ -16,38 +16,38 @@ interface SustainabilitySection {
 const DEFAULT_SECTIONS = [
   {
     id: -1,
-    category: "sustainability",
-    title: "Pemberdayaan Pakan Alami & Ramah Lingkungan",
-    description: "Kami menerapkan sistem pertanian sirkular di mana pakan ayam diproduksi dengan meminimalkan jejak karbon. Kami bekerja sama dengan petani lokal untuk menyediakan bahan baku jagung dan bekatul berkualitas tinggi, menyeimbangkan ekosistem tani sekitar sekaligus mengurangi polusi logistik.",
-    imageUrl: "https://images.unsplash.com/photo-1595855759920-86582396756a?q=80&w=800&auto=format&fit=crop",
+    category: "responsibility",
+    title: "Pemberdayaan Masyarakat & UMKM Lokal",
+    description: "Kami percaya bertumbuh bersama masyarakat adalah inti tanggung jawab kami. BANG TELOR secara rutin mengadakan pelatihan manajemen ternak skala rumah tangga dan mensuplai kebutuhan telur berkualitas tinggi dengan harga khusus bagi pengusaha kuliner mikro (UMKM) di sekitar area Jatiasih untuk meningkatkan kesejahteraan ekonomi warga.",
+    imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop",
     order: 0,
     createdAt: new Date()
   },
   {
     id: -2,
-    category: "sustainability",
-    title: "Pengelolaan Limbah Organik Zero-Waste",
-    description: "Kotoran ayam dari peternakan kami tidak dibuang begitu saja. Melalui proses fermentasi modern, kami mengubah seluruh limbah menjadi pupuk organik bermutu tinggi yang dibagikan secara gratis kepada komunitas petani sekitar untuk menyuburkan lahan mereka. Langkah nyata kami mewujudkan pertanian berkelanjutan tanpa limbah berbahaya.",
-    imageUrl: "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?q=80&w=800&auto=format&fit=crop",
+    category: "responsibility",
+    title: "Program Edukasi & Gizi Anak",
+    description: "Sebagai produsen protein hewani terpercaya, kami memiliki kepedulian tinggi terhadap penurunan angka stunting. Melalui program CSR berkelanjutan, kami mendistribusikan ribuan butir telur sehat setiap bulan untuk anak-anak balita di posyandu binaan serta menyelenggarakan edukasi gizi seimbang bagi ibu rumah tangga setempat.",
+    imageUrl: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop",
     order: 1,
     createdAt: new Date()
   }
 ];
 
-export default async function SustainabilityPage() {
+export default async function ResponsibilityPage() {
   let sections: SustainabilitySection[] = [];
   
   try {
     sections = await prisma.sustainabilitySection.findMany({
       where: {
-        category: "sustainability"
+        category: "responsibility"
       },
       orderBy: {
         order: "asc"
       }
     });
   } catch (error) {
-    console.error("Gagal memuat data sustainability:", error);
+    console.error("Gagal memuat data responsibility:", error);
   }
 
   // Jika kosong di database, gunakan default agar halaman tetap cantik dan berisi
@@ -59,13 +59,13 @@ export default async function SustainabilityPage() {
       <section className="relative w-full min-h-[50vh] flex items-center justify-center bg-gradient-to-br from-emerald-50 via-teal-50/30 to-green-50 px-4 py-20">
         <div className="max-w-5xl mx-auto text-center space-y-6 z-10">
           <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 uppercase tracking-widest">
-            Komitmen Kami
+            Tanggung Jawab Sosial
           </span>
           <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-tight tracking-tight">
-            Sustainability
+            Responsibility
           </h1>
           <p className="text-lg md:text-xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed">
-            Menghasilkan telur berkualitas tinggi sembari menjaga harmoni alam, melestarikan ekosistem lokal, dan menerapkan praktik ramah lingkungan.
+            Mewujudkan kepedulian sosial yang nyata melalui kontribusi pangan bergizi, pemberdayaan ekonomi lokal, dan kesejahteraan komunitas.
           </p>
         </div>
         
@@ -126,10 +126,10 @@ export default async function SustainabilityPage() {
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
         <div className="max-w-4xl mx-auto text-center space-y-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-black">
-            Ingin Tahu Lebih Banyak Tentang Praktik Keberlanjutan Kami?
+            Ingin Tahu Lebih Banyak Tentang Praktik Sosial Kami?
           </h2>
           <p className="text-lg md:text-xl text-emerald-100 font-light max-w-2xl mx-auto">
-            Hubungi kami untuk kolaborasi kemitraan hijau atau detail operasional ekologis peternakan kami.
+            Hubungi kami untuk kolaborasi, penyaluran program sosial, atau kemitraan pemberdayaan komunitas.
           </p>
           <div className="pt-4">
             <Link

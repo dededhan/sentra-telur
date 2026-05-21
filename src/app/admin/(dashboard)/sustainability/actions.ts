@@ -9,6 +9,7 @@ export async function addSustainabilitySection(formData: FormData) {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const image = formData.get("image") as File | null;
+    const category = (formData.get("category") as string) || "sustainability";
 
     if (!title || !description || !image || image.size === 0) {
       return { success: false, error: "Judul, penjelasan, dan gambar wajib diisi." };
@@ -36,10 +37,13 @@ export async function addSustainabilitySection(formData: FormData) {
       .from('assets')
       .getPublicUrl(fileName);
 
-    const count = await prisma.sustainabilitySection.count();
+    const count = await prisma.sustainabilitySection.count({
+      where: { category }
+    });
 
     await prisma.sustainabilitySection.create({
       data: {
+        category,
         title,
         description,
         imageUrl: publicUrl,
@@ -48,6 +52,7 @@ export async function addSustainabilitySection(formData: FormData) {
     });
 
     revalidatePath("/sustainability");
+    revalidatePath("/responsibility");
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error?.message || "Gagal menambahkan seksi keberlanjutan" };
@@ -113,6 +118,7 @@ export async function editSustainabilitySection(id: number, formData: FormData) 
     });
 
     revalidatePath("/sustainability");
+    revalidatePath("/responsibility");
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error?.message || "Gagal mengubah seksi keberlanjutan" };
@@ -135,6 +141,7 @@ export async function deleteSustainabilitySection(id: number) {
     await prisma.sustainabilitySection.delete({ where: { id } });
 
     revalidatePath("/sustainability");
+    revalidatePath("/responsibility");
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error?.message || "Gagal menghapus seksi keberlanjutan" };

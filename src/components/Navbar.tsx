@@ -26,8 +26,11 @@ export default function Navbar() {
             <Link href="/about" className="text-gray-700 hover:text-emerald-600 font-medium">
               About
             </Link>
+            <Link href="/responsibility" className="text-gray-700 hover:text-emerald-600 font-medium">
+              Responsibility
+            </Link>
             <Link href="/sustainability" className="text-gray-700 hover:text-emerald-600 font-medium">
-              Responsibility & Sustainability
+              Sustainability
             </Link>
             <Link href="/product" className="text-gray-700 hover:text-emerald-600 font-medium">
               Product
@@ -68,11 +71,18 @@ export default function Navbar() {
               About
             </Link>
             <Link 
+              href="/responsibility" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md"
+            >
+              Responsibility
+            </Link>
+            <Link 
               href="/sustainability" 
               onClick={() => setIsMobileMenuOpen(false)}
               className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md"
             >
-              Responsibility & Sustainability
+              Sustainability
             </Link>
             <Link 
               href="/product" 

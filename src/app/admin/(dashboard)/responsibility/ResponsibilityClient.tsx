@@ -3,10 +3,10 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { 
-  addSustainabilitySection, 
-  editSustainabilitySection, 
-  deleteSustainabilitySection 
-} from "./actions";
+  addSustainabilitySection as addResponsibilitySection, 
+  editSustainabilitySection as editResponsibilitySection, 
+  deleteSustainabilitySection as deleteResponsibilitySection 
+} from "../sustainability/actions";
 import { 
   Plus, 
   Edit2, 
@@ -15,10 +15,10 @@ import {
   Loader2, 
   Image as ImageIcon, 
   Save, 
-  FileText 
+  Shield 
 } from "lucide-react";
 
-type SustainabilitySection = {
+type ResponsibilitySection = {
   id: number;
   title: string;
   description: string;
@@ -27,14 +27,14 @@ type SustainabilitySection = {
   createdAt: Date;
 };
 
-export default function SustainabilityClient({ 
+export default function ResponsibilityClient({ 
   initialSections 
 }: { 
-  initialSections: SustainabilitySection[] 
+  initialSections: ResponsibilitySection[] 
 }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingSection, setEditingSection] = useState<SustainabilitySection | null>(null);
+  const [editingSection, setEditingSection] = useState<ResponsibilitySection | null>(null);
   
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -44,7 +44,7 @@ export default function SustainabilityClient({
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const openModal = (section?: SustainabilitySection) => {
+  const openModal = (section?: ResponsibilitySection) => {
     if (section) {
       setEditingSection(section);
       setTitle(section.title);
@@ -93,15 +93,15 @@ export default function SustainabilityClient({
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
-      formData.append("category", "sustainability");
+      formData.append("category", "responsibility");
       if (imageFile) {
         formData.append("image", imageFile);
       }
 
       if (editingSection) {
-        const res = await editSustainabilitySection(editingSection.id, formData);
+        const res = await editResponsibilitySection(editingSection.id, formData);
         if (res.success) {
-          alert("Seksi keberlanjutan berhasil diubah!");
+          alert("Seksi tanggung jawab berhasil diubah!");
           closeModal();
           router.refresh();
         } else {
@@ -113,9 +113,9 @@ export default function SustainabilityClient({
           setIsLoading(false);
           return;
         }
-        const res = await addSustainabilitySection(formData);
+        const res = await addResponsibilitySection(formData);
         if (res.success) {
-          alert("Seksi keberlanjutan berhasil ditambahkan!");
+          alert("Seksi tanggung jawab berhasil ditambahkan!");
           closeModal();
           router.refresh();
         } else {
@@ -130,11 +130,11 @@ export default function SustainabilityClient({
   };
 
   const handleDelete = async (id: number) => {
-    if (confirm("Apakah Anda yakin ingin menghapus seksi keberlanjutan ini? Tindakan ini tidak dapat dibatalkan.")) {
+    if (confirm("Apakah Anda yakin ingin menghapus seksi tanggung jawab ini? Tindakan ini tidak dapat dibatalkan.")) {
       try {
-        const res = await deleteSustainabilitySection(id);
+        const res = await deleteResponsibilitySection(id);
         if (res.success) {
-          alert("Seksi berhasil dihapus!");
+          alert("Seksi tanggung jawab berhasil dihapus!");
           router.refresh();
         } else {
           alert(res.error);
@@ -149,8 +149,8 @@ export default function SustainabilityClient({
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden pb-8">
       <div className="p-6 flex justify-between items-center border-b border-gray-100 bg-gray-50/50">
         <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-          <FileText className="w-5 h-5 text-emerald-600" />
-          Daftar Seksi Konten Keberlanjutan
+          <Shield className="w-5 h-5 text-emerald-600" />
+          Daftar Seksi Konten Tanggung Jawab (Responsibility)
         </h2>
         <button
           onClick={() => openModal()}
@@ -177,7 +177,7 @@ export default function SustainabilityClient({
                 <td colSpan={4} className="px-6 py-12 text-center text-gray-500">
                   <div className="flex flex-col items-center justify-center space-y-2">
                     <ImageIcon className="w-8 h-8 text-gray-300" />
-                    <p className="font-medium">Belum ada seksi keberlanjutan.</p>
+                    <p className="font-medium">Belum ada seksi tanggung jawab.</p>
                     <p className="text-sm text-gray-400">Silakan tambahkan seksi baru menggunakan tombol di atas.</p>
                   </div>
                 </td>
@@ -235,7 +235,7 @@ export default function SustainabilityClient({
           <div className="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
             <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
               <h3 className="font-bold text-lg text-gray-900">
-                {editingSection ? "Ubah Seksi Keberlanjutan" : "Tambah Seksi Keberlanjutan Baru"}
+                {editingSection ? "Ubah Seksi Tanggung Jawab" : "Tambah Seksi Tanggung Jawab Baru"}
               </h3>
               <button
                 onClick={closeModal}
@@ -293,7 +293,7 @@ export default function SustainabilityClient({
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900 font-medium"
-                      placeholder="Contoh: Pengelolaan Limbah Organik"
+                      placeholder="Contoh: Program Pembagian Gizi"
                     />
                   </div>
                   
@@ -307,7 +307,7 @@ export default function SustainabilityClient({
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all resize-none text-gray-900 text-sm leading-relaxed"
-                      placeholder="Tulis penjelasan lengkap bagaimana peternakan Anda menjalankan tanggung jawab sosial/lingkungan ini..."
+                      placeholder="Tulis penjelasan lengkap bagaimana peternakan Anda menjalankan tanggung jawab sosial ini..."
                     />
                   </div>
                 </div>
