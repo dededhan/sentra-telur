@@ -149,36 +149,13 @@ export default async function ContactPage() {
       {/* 3. CUSTOM LARGE CARD SECTION */}
       <section className="py-20 px-4 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto">
-          <div className="relative w-full rounded-[40px] overflow-hidden shadow-2xl min-h-[450px] flex items-center bg-gray-900">
+          <div className="relative w-full rounded-[40px] overflow-hidden shadow-2xl min-h-[450px] bg-gray-100">
             {/* Background Image (Customizable by admin) */}
             <img 
               src={settings?.contactCardImage || "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&q=80&w=1920"} 
               alt="Farm Banner" 
-              className="absolute inset-0 w-full h-full object-cover opacity-60" 
+              className="absolute inset-0 w-full h-full object-cover" 
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-transparent" />
-            
-            <div className="relative z-10 px-8 py-16 md:p-16 max-w-2xl space-y-6 text-white">
-              <span className="inline-block px-4 py-1.5 bg-emerald-500/30 border border-emerald-400/40 rounded-full text-emerald-300 font-bold text-xs uppercase tracking-wider">
-                Peternakan Modern
-              </span>
-              <h3 className="text-4xl md:text-5xl font-black leading-tight">
-                Komitmen Kenyamanan & Kebersihan
-              </h3>
-              <p className="text-lg text-gray-200 font-light leading-relaxed">
-                Kami menerapkan biosekuriti ketat dan manajemen kandang modern untuk menjamin setiap butir telur yang sampai ke tangan Anda bebas kuman, segar, dan bernutrisi tinggi.
-              </p>
-              <div className="pt-2">
-                <a 
-                  href={`https://wa.me/${settings?.whatsappNumber?.replace(/[^0-9]/g, "") || "6289654032950"}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 text-center"
-                >
-                  Hubungi WhatsApp Peternakan
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
