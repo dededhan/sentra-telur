@@ -91,7 +91,7 @@ export default async function ProductDetailPage({
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">
             {product.title}
           </h1>
-          <div className="prose prose-orange max-w-none text-gray-600 mb-10 text-lg leading-relaxed whitespace-pre-line text-justify">
+          <div className="prose prose-emerald max-w-none text-gray-600 mb-10 text-lg leading-relaxed whitespace-pre-line text-justify">
             {product.description ||
               "Hubungi kami untuk mendapatkan detail lebih lanjut mengenai kualitas dan ketersediaan produk ini."}
           </div>

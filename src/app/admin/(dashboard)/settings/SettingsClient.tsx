@@ -57,8 +57,10 @@ export default function SettingsClient({
   const handleHeroChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert("Gambar Hero terlalu besar. Maksimal 5MB.");
+      const isVideo = file.type === "video/mp4" || file.name.toLowerCase().endsWith(".mp4");
+      const maxSize = isVideo ? 25 * 1024 * 1024 : 5 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert(isVideo ? "Video Hero terlalu besar. Maksimal 25MB." : "Gambar Hero terlalu besar. Maksimal 5MB.");
         return;
       }
       setHeroImageFile(file);
@@ -162,37 +164,41 @@ export default function SettingsClient({
             <h3 className="font-semibold text-gray-700 text-lg border-b pb-2">Halaman Utama (Hero)</h3>
             
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Background Hero Image</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Background Hero (Gambar / MP4 Video Loop)</label>
               <div 
-                className="w-full aspect-[21/9] relative rounded-xl border-2 border-dashed border-gray-300 hover:border-amber-500 bg-gray-50 overflow-hidden cursor-pointer group transition-colors"
+                className="w-full aspect-[21/9] relative rounded-xl border-2 border-dashed border-gray-300 hover:border-emerald-500 bg-gray-50 overflow-hidden cursor-pointer group transition-colors"
                 onClick={() => heroInputRef.current?.click()}
               >
                 {heroPreview ? (
                   <>
-                    <img src={heroPreview} alt="Hero Preview" className="w-full h-full object-cover" />
+                    {heroPreview.startsWith("data:video/") || heroPreview.split('?')[0].toLowerCase().endsWith(".mp4") ? (
+                      <video src={heroPreview} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                    ) : (
+                      <img src={heroPreview} alt="Hero Preview" className="w-full h-full object-cover" />
+                    )}
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="text-white font-medium bg-black/60 px-4 py-2 rounded-lg">Ganti Gambar</span>
+                      <span className="text-white font-medium bg-black/60 px-4 py-2 rounded-lg">Ganti Media</span>
                     </div>
                   </>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-gray-500">
-                    <ImageIcon className="w-8 h-8 mb-2 text-amber-500" />
-                    <span className="text-sm font-medium">Klik untuk unggah gambar</span>
-                    <span className="text-xs mt-1">(Ideal: 1920x1080px, Max 5MB)</span>
+                    <ImageIcon className="w-8 h-8 mb-2 text-emerald-500" />
+                    <span className="text-sm font-medium">Klik untuk unggah media (Gambar/Video)</span>
+                    <span className="text-xs mt-1">(Gambar Max 5MB, MP4 Video Max 25MB)</span>
                   </div>
                 )}
-                <input type="file" ref={heroInputRef} onChange={handleHeroChange} accept="image/*" className="hidden" />
+                <input type="file" ref={heroInputRef} onChange={handleHeroChange} accept="image/*,video/mp4" className="hidden" />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">Headline Utama (Teks Besar)</label>
-              <input type="text" value={headline} onChange={e => setHeadline(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900" />
+              <input type="text" value={headline} onChange={e => setHeadline(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" />
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">URL Video YouTube</label>
-              <input type="url" value={video} onChange={e => setVideo(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900" placeholder="https://youtube.com/embed/..." />
+              <input type="url" value={video} onChange={e => setVideo(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" placeholder="https://youtube.com/embed/..." />
             </div>
           </div>
 
@@ -203,32 +209,32 @@ export default function SettingsClient({
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2"><Phone className="w-4 h-4"/> No. WhatsApp</label>
-                <input type="text" value={waNum} onChange={e => setWaNum(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900" placeholder="62812..." />
+                <input type="text" value={waNum} onChange={e => setWaNum(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" placeholder="62812..." />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2"><MessageSquare className="w-4 h-4"/> Pesan Default WA</label>
-                <input type="text" value={waText} onChange={e => setWaText(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900" placeholder="Halo BANG TELOR..." />
+                <input type="text" value={waText} onChange={e => setWaText(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" placeholder="Halo BANG TELOR..." />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2"><Phone className="w-4 h-4"/> Telepon Kantor (Footer)</label>
-              <input type="text" value={phone} onChange={e => setPhone(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900" />
+              <input type="text" value={phone} onChange={e => setPhone(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" />
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2"><Mail className="w-4 h-4"/> Email Perusahaan</label>
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900" />
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} required className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" />
             </div>
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2"><MapPin className="w-4 h-4"/> Alamat Lengkap</label>
-              <textarea value={address} onChange={e => setAddress(e.target.value)} required rows={3} className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900 resize-none" />
+              <textarea value={address} onChange={e => setAddress(e.target.value)} required rows={3} className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900 resize-none" />
             </div>
             
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1 flex items-center gap-2"><MapPin className="w-4 h-4"/> URL Iframe Google Maps</label>
-              <textarea value={mapEmbed} onChange={e => setMapEmbed(e.target.value)} required rows={2} className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900 resize-none text-xs font-mono" placeholder="<iframe src=...>" />
+              <textarea value={mapEmbed} onChange={e => setMapEmbed(e.target.value)} required rows={2} className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900 resize-none text-xs font-mono" placeholder="<iframe src=...>" />
             </div>
           </div>
 
@@ -237,7 +243,7 @@ export default function SettingsClient({
              <button
                 type="submit"
                 disabled={isSavingSettings}
-                className="px-8 py-3 text-sm font-bold text-white bg-amber-600 rounded-xl hover:bg-amber-700 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
+                className="px-8 py-3 text-sm font-bold text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
               >
                 {isSavingSettings ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                 {isSavingSettings ? "Menyimpan..." : "Simpan Pengaturan Global"}
@@ -262,14 +268,14 @@ export default function SettingsClient({
               <div>
                 <label className="block text-xs font-semibold text-gray-500 mb-1">Logo Partner (PNG Transparan)</label>
                 <div 
-                  className="w-full aspect-[3/2] relative rounded-xl border-2 border-dashed border-gray-300 hover:border-amber-500 bg-gray-50 overflow-hidden cursor-pointer flex items-center justify-center p-4"
+                  className="w-full aspect-[3/2] relative rounded-xl border-2 border-dashed border-gray-300 hover:border-emerald-500 bg-gray-50 overflow-hidden cursor-pointer flex items-center justify-center p-4"
                   onClick={() => partnerInputRef.current?.click()}
                 >
                   {partnerPreview ? (
                     <img src={partnerPreview} alt="Partner Preview" className="w-full h-full object-contain mix-blend-multiply" />
                   ) : (
                     <div className="text-center text-gray-400">
-                      <Plus className="w-6 h-6 mx-auto mb-1 text-amber-500" />
+                      <Plus className="w-6 h-6 mx-auto mb-1 text-emerald-500" />
                       <span className="text-xs">Pilih Gambar</span>
                     </div>
                   )}
@@ -279,13 +285,13 @@ export default function SettingsClient({
               
               <div>
                 <label className="block text-xs font-semibold text-gray-500 mb-1">Nama Partner/Perusahaan</label>
-                <input type="text" value={partnerName} onChange={e => setPartnerName(e.target.value)} required className="w-full px-4 py-2 text-sm bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900" />
+                <input type="text" value={partnerName} onChange={e => setPartnerName(e.target.value)} required className="w-full px-4 py-2 text-sm bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" />
               </div>
 
               <button
                 type="submit"
                 disabled={isAddingPartner || initialPartners.length >= 4}
-                className="w-full py-2.5 text-sm font-bold text-amber-600 bg-amber-50 border-2 border-amber-100 rounded-xl hover:bg-amber-100 hover:border-amber-200 transition-colors disabled:opacity-50 disabled:grayscale flex items-center justify-center gap-2"
+                className="w-full py-2.5 text-sm font-bold text-emerald-600 bg-emerald-50 border-2 border-emerald-100 rounded-xl hover:bg-emerald-100 hover:border-emerald-200 transition-colors disabled:opacity-50 disabled:grayscale flex items-center justify-center gap-2"
               >
                 {isAddingPartner ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                 Tambah Partner
@@ -307,7 +313,7 @@ export default function SettingsClient({
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {initialPartners.map((p) => (
-                  <div key={p.id} className="group relative bg-white border border-gray-200 rounded-xl p-4 aspect-square flex flex-col items-center justify-center hover:border-amber-400 transition-colors shadow-sm">
+                  <div key={p.id} className="group relative bg-white border border-gray-200 rounded-xl p-4 aspect-square flex flex-col items-center justify-center hover:border-emerald-400 transition-colors shadow-sm">
                     <img src={p.logoUrl} alt={p.name} className="w-full h-20 object-contain mix-blend-multiply mb-2" />
                     <p className="text-xs font-medium text-gray-600 text-center truncate w-full" title={p.name}>{p.name}</p>
                     

@@ -60,7 +60,7 @@ export default function Sidebar() {
         </button>
 
         {/* Logo/Brand */}
-        <div className="p-6 border-b border-gray-100 flex items-center gap-3 text-amber-600">
+        <div className="p-6 border-b border-gray-100 flex items-center gap-3 text-emerald-600">
           <Egg className="w-8 h-8 flex-shrink-0" />
           <span className="font-bold text-xl tracking-tight leading-none">
             BANG TELOR
@@ -81,8 +81,8 @@ export default function Sidebar() {
                 onClick={() => setIsMobileOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-colors ${
                   isActive 
-                    ? 'bg-amber-50 text-amber-600' 
-                    : 'text-gray-700 hover:bg-gray-50 hover:text-amber-600'
+                    ? 'bg-emerald-50 text-emerald-600' 
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-emerald-600'
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -106,4 +106,3 @@ export default function Sidebar() {
     </>
   );
 }
-

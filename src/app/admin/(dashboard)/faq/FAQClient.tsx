@@ -81,7 +81,7 @@ export default function FAQClient({ faqs }: { faqs: FAQ[] }) {
         <h2 className="text-xl font-bold text-gray-800">Daftar FAQ</h2>
         <button
           onClick={() => openModal()}
-          className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-medium transition-colors"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-medium transition-colors"
         >
           <Plus className="w-4 h-4" />
           Tambah FAQ
@@ -164,7 +164,7 @@ export default function FAQClient({ faqs }: { faqs: FAQ[] }) {
                   required
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all text-gray-900"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900"
                   placeholder="Masukkan pertanyaan..."
                 />
               </div>
@@ -178,7 +178,7 @@ export default function FAQClient({ faqs }: { faqs: FAQ[] }) {
                   rows={5}
                   value={answer}
                   onChange={(e) => setAnswer(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all resize-none text-gray-900"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all resize-none text-gray-900"
                   placeholder="Masukkan jawaban lengkap..."
                 />
               </div>
@@ -195,7 +195,7 @@ export default function FAQClient({ faqs }: { faqs: FAQ[] }) {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-5 py-2.5 text-sm font-medium text-white bg-amber-600 rounded-xl hover:bg-amber-700 transition-colors disabled:opacity-50 flex items-center gap-2"
+                  className="px-5 py-2.5 text-sm font-medium text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center gap-2"
                 >
                   {isLoading ? (
                     <>

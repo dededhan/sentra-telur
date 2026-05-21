@@ -126,7 +126,7 @@ export default function ProductClient({ products }: { products: Product[] }) {
         <h2 className="text-xl font-bold text-gray-800">Daftar Produk</h2>
         <button
           onClick={() => openModal()}
-          className="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-medium transition-colors"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-medium transition-colors"
         >
           <Plus className="w-4 h-4" />
           Tambah Produk
@@ -206,11 +206,11 @@ export default function ProductClient({ products }: { products: Product[] }) {
                   Gambar Produk
                 </label>
                 <div 
-                  className="w-full relative rounded-xl border-2 border-dashed border-gray-300 hover:border-amber-500 bg-gray-50 transition-colors cursor-pointer overflow-hidden group"
+                  className="w-full relative rounded-xl border-2 border-dashed border-gray-300 hover:border-emerald-500 bg-gray-50 transition-colors cursor-pointer overflow-hidden group"
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <div className={`flex flex-col items-center justify-center p-8 text-center ${imagePreview ? 'opacity-0 absolute inset-0' : 'opacity-100 relative'}`}>
-                    <div className="p-3 bg-white rounded-full shadow-sm mb-3 text-amber-600">
+                    <div className="p-3 bg-white rounded-full shadow-sm mb-3 text-emerald-600">
                       <ImageIcon className="w-6 h-6" />
                     </div>
                     <p className="text-sm font-medium text-gray-700 mb-1">Klik untuk mengunggah gambar</p>
@@ -248,7 +248,7 @@ export default function ProductClient({ products }: { products: Product[] }) {
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all text-gray-900"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all text-gray-900"
                   placeholder="Contoh: Telur Ayam Negeri (1 Kg)"
                 />
               </div>
@@ -262,7 +262,7 @@ export default function ProductClient({ products }: { products: Product[] }) {
                   rows={4}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all resize-none text-gray-900"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all resize-none text-gray-900"
                   placeholder="Jelaskan kualitas, ukuran, atau informasi harga..."
                 />
               </div>
@@ -279,7 +279,7 @@ export default function ProductClient({ products }: { products: Product[] }) {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-6 py-2.5 text-sm font-medium text-white bg-amber-600 rounded-xl hover:bg-amber-700 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
+                  className="px-6 py-2.5 text-sm font-medium text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
                 >
                   {isLoading ? (
                     <>

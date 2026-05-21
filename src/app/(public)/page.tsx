@@ -18,18 +18,30 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col font-sans bg-white flex-grow">
-      {/* 1. HERO SECTION - Enhanced */}
-      <section
-        className="relative w-full min-h-[85vh] flex items-center justify-center bg-gray-900 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${settings?.heroImage || "https://images.unsplash.com/photo-1516467508483-a7212febe31a?q=80&w=2000&auto=format"})`,
-          backgroundBlendMode: "overlay",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/50" />
+      {/* 1. HERO SECTION - Enhanced with Video Background */}
+      <section className="relative w-full min-h-[85vh] flex items-center justify-center bg-gray-900 overflow-hidden">
+        {/* Looping MP4 Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-45 z-0"
+        >
+          <source
+            src={
+              settings?.heroImage && settings.heroImage.endsWith(".mp4")
+                ? settings.heroImage
+                : "https://assets.mixkit.co/videos/preview/mixkit-chickens-in-a-farm-yard-48768-large.mp4"
+            }
+            type="video/mp4"
+          />
+        </video>
+        <div className="absolute inset-0 bg-black/50 z-0" />
+
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto py-16">
-          <div className="inline-block mb-6 px-6 py-2 bg-orange-500/20 border border-orange-400 rounded-full">
-            <span className="text-orange-300 font-semibold text-sm">
+          <div className="inline-block mb-6 px-6 py-2 bg-emerald-500/20 border border-emerald-400 rounded-full">
+            <span className="text-emerald-300 font-semibold text-sm">
               ⭐ Dipercaya Sejak 2006
             </span>
           </div>
@@ -43,7 +55,7 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/product"
-              className="px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition shadow-lg hover:shadow-xl"
             >
               Jelajahi Produk
             </Link>
@@ -58,7 +70,7 @@ export default async function Home() {
       </section>
 
       {/* 1.5 STATS SECTION */}
-      <section className="bg-gradient-to-r from-orange-600 to-amber-600 text-white py-12 px-4">
+      <section className="bg-gradient-to-r from-emerald-600 to-green-500 text-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div>
@@ -138,8 +150,8 @@ export default async function Home() {
                   key={i}
                   className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all border border-gray-100"
                 >
-                  <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
-                    <IconComponent className="w-7 h-7 text-orange-600" />
+                  <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                    <IconComponent className="w-7 h-7 text-emerald-600" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">
                     {item.title}
@@ -148,6 +160,80 @@ export default async function Home() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* 2.5 COMPANY CORE VALUES SECTION */}
+      <section className="py-24 px-4 bg-gradient-to-b from-gray-50 to-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <div className="inline-block px-4 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full">
+              <span className="text-emerald-700 font-semibold text-xs uppercase tracking-wider">
+                ⭐ Budaya & Karakter
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-gray-900">
+              Nilai Inti Perusahaan
+            </h2>
+            <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Menciptakan dan memelihara nilai inti perusahaan adalah hal terpenting di <span className="font-bold text-emerald-600">Bang Telor</span>. Nilai inti ini berfungsi sebagai dasar landasan operasional, memandu setiap pengambilan keputusan, dan mencerminkan komitmen kami terhadap integritas, pertumbuhan dan keberlanjutan.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                src: "/core-values/berintegritas.jpg",
+                title: "Berintegritas",
+                desc: "Selalu memegang teguh kejujuran dan standar moral tertinggi dalam setiap tindakan.",
+              },
+              {
+                src: "/core-values/kolaboratif.jpg",
+                title: "Kolaboratif",
+                desc: "Bekerja sama secara harmonis untuk mencapai hasil terbaik bagi seluruh mitra.",
+              },
+              {
+                src: "/core-values/tuntas_berkualitas.jpg",
+                title: "Tuntas Berkualitas",
+                desc: "Menyelesaikan setiap tugas dengan standar kualitas produk terbaik tanpa kompromi.",
+              },
+              {
+                src: "/core-values/bertumbuh.jpg",
+                title: "Bertumbuh",
+                desc: "Senantiasa berinovasi dan terus berkembang bersama demi masa depan yang berkelanjutan.",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col"
+              >
+                <div className="relative aspect-square overflow-hidden bg-gray-100">
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <div className="p-6 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-50 flex items-center justify-between">
+                    <span className="text-xs font-semibold text-emerald-600 uppercase tracking-widest">
+                      Core Value 0{i + 1}
+                    </span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -166,7 +252,7 @@ export default async function Home() {
             </div>
             <Link
               href="/product"
-              className="hidden md:block px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition"
+              className="hidden md:block px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition"
             >
               Lihat Semua →
             </Link>
@@ -179,7 +265,7 @@ export default async function Home() {
           <div className="text-center md:hidden">
             <Link
               href="/product"
-              className="inline-block px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition"
+              className="inline-block px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition"
             >
               Lihat Semua Produk
             </Link>
@@ -194,7 +280,7 @@ export default async function Home() {
       <PartnerSlider partners={partners} />
 
       {/* 6. COMMITMENT SECTION - Enhanced */}
-      <section className="py-24 bg-gradient-to-br from-orange-600 via-orange-700 to-amber-800 text-white text-center px-4 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-emerald-600 via-emerald-700 to-green-800 text-white text-center px-4 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
@@ -226,7 +312,7 @@ export default async function Home() {
           </div>
           <Link
             href="/product"
-            className="inline-block mt-6 px-8 py-4 bg-white text-orange-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-xl hover:shadow-2xl"
+            className="inline-block mt-6 px-8 py-4 bg-white text-emerald-700 font-bold rounded-xl hover:bg-gray-100 transition shadow-xl hover:shadow-2xl"
           >
             Jelajahi Koleksi Produk
           </Link>
@@ -263,7 +349,7 @@ export default async function Home() {
       </section>
 
       {/* 8. CTA SECTION */}
-      <section className="py-20 px-4 bg-gradient-to-r from-orange-50 to-amber-50 border-t border-orange-200">
+      <section className="py-20 px-4 bg-gradient-to-r from-emerald-50 to-green-50 border-t border-emerald-200">
         <div className="max-w-5xl mx-auto text-center space-y-8">
           <h2 className="text-4xl md:text-5xl font-black text-gray-900">
             Siap Bermitra Dengan Kami?
@@ -275,13 +361,13 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition shadow-lg"
+              className="px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition shadow-lg"
             >
               Hubungi Kami Sekarang
             </Link>
             <Link
               href="/product"
-              className="px-8 py-4 bg-white border-2 border-orange-600 text-orange-600 font-bold rounded-lg hover:bg-orange-50 transition"
+              className="px-8 py-4 bg-white border-2 border-emerald-600 text-emerald-600 font-bold rounded-lg hover:bg-emerald-50 transition"
             >
               Lihat Katalog Produk
             </Link>

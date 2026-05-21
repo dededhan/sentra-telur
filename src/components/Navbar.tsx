@@ -13,23 +13,23 @@ export default function Navbar() {
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold text-orange-600">
+            <Link href="/" className="text-2xl font-bold text-emerald-600">
               BANG TELOR
             </Link>
           </div>
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-orange-600 font-medium">
+            <Link href="/" className="text-gray-700 hover:text-emerald-600 font-medium">
               Home
             </Link>
-            <Link href="/about" className="text-gray-700 hover:text-orange-600 font-medium">
+            <Link href="/about" className="text-gray-700 hover:text-emerald-600 font-medium">
               About
             </Link>
-            <Link href="/product" className="text-gray-700 hover:text-orange-600 font-medium">
+            <Link href="/product" className="text-gray-700 hover:text-emerald-600 font-medium">
               Product
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-orange-600 font-medium">
+            <Link href="/contact" className="text-gray-700 hover:text-emerald-600 font-medium">
               Contact
             </Link>
           </nav>
@@ -38,7 +38,7 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-gray-700 hover:text-orange-600 focus:outline-none"
+              className="text-gray-700 hover:text-emerald-600 focus:outline-none"
             >
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -53,28 +53,28 @@ export default function Navbar() {
             <Link 
               href="/" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-md"
+              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md"
             >
               Home
             </Link>
             <Link 
               href="/about" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-md"
+              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md"
             >
               About
             </Link>
             <Link 
               href="/product" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-md"
+              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md"
             >
               Product
             </Link>
             <Link 
               href="/contact" 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-md"
+              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-emerald-50 rounded-md"
             >
               Contact
             </Link>
@@ -84,4 +84,3 @@ export default function Navbar() {
     </header>
   );
 }
-

@@ -25,7 +25,7 @@ export default function AboutSnippet({ about }: { about: any }) {
         </p>
         <Link
           href="/about"
-          className="inline-block px-8 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition shadow-md"
+          className="inline-block px-8 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition shadow-md"
         >
           Selengkapnya
         </Link>

@@ -15,7 +15,7 @@ export default async function AboutPage() {
   return (
     <main className="flex-grow bg-white">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-orange-50 to-amber-50 px-4 py-20">
+      <section className="relative w-full min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-emerald-50 to-green-50 px-4 py-20">
         <div className="max-w-5xl mx-auto text-center space-y-6 z-10">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-tight">
             {title}
@@ -49,7 +49,7 @@ export default async function AboutPage() {
             </div>
             <Link
               href="/contact"
-              className="inline-block px-8 py-4 bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold rounded-xl hover:from-orange-700 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+              className="inline-block px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-500 text-white font-bold rounded-xl hover:from-emerald-700 hover:to-green-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
             >
               Hubungi Kami
             </Link>

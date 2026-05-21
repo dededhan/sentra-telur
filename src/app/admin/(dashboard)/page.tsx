@@ -24,7 +24,7 @@ export default async function AdminDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <h3 className="text-lg font-bold text-gray-800 mb-1">Total Produk</h3>
-          <p className="text-4xl font-extrabold text-orange-600">{totalProducts}</p>
+          <p className="text-4xl font-extrabold text-emerald-600">{totalProducts}</p>
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <h3 className="text-lg font-bold text-gray-800 mb-1">
@@ -36,7 +36,7 @@ export default async function AdminDashboard() {
           <h3 className="text-lg font-bold text-gray-800 mb-1">
             Total Partner
           </h3>
-          <p className="text-4xl font-extrabold text-amber-500">{totalPartners}</p>
+          <p className="text-4xl font-extrabold text-emerald-500">{totalPartners}</p>
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
           <h3 className="text-lg font-bold text-gray-800 mb-1">Status Web</h3>
@@ -49,4 +49,3 @@ export default async function AdminDashboard() {
     </div>
   );
 }
-

@@ -71,7 +71,7 @@ export default function AboutClient({ initialAbout }: { initialAbout: About | nu
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Gambar "Tentang Kami"</label>
             <div 
-              className="w-full aspect-[4/3] relative rounded-xl border-2 border-dashed border-gray-300 hover:border-amber-500 bg-gray-50 overflow-hidden cursor-pointer group transition-colors"
+              className="w-full aspect-[4/3] relative rounded-xl border-2 border-dashed border-gray-300 hover:border-emerald-500 bg-gray-50 overflow-hidden cursor-pointer group transition-colors"
               onClick={() => fileInputRef.current?.click()}
             >
               {imagePreview ? (
@@ -83,7 +83,7 @@ export default function AboutClient({ initialAbout }: { initialAbout: About | nu
                 </>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-gray-500">
-                  <ImageIcon className="w-8 h-8 mb-2 text-amber-500" />
+                  <ImageIcon className="w-8 h-8 mb-2 text-emerald-500" />
                   <span className="text-sm font-medium">Klik untuk unggah gambar</span>
                   <span className="text-xs mt-1">(Max 5MB)</span>
                 </div>
@@ -102,7 +102,7 @@ export default function AboutClient({ initialAbout }: { initialAbout: About | nu
               value={title} 
               onChange={e => setTitle(e.target.value)} 
               required 
-              className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-gray-900" 
+              className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-gray-900" 
               placeholder="Contoh: Tentang BANG TELOR" 
             />
           </div>
@@ -114,7 +114,7 @@ export default function AboutClient({ initialAbout }: { initialAbout: About | nu
               onChange={e => setDescription(e.target.value)} 
               required 
               rows={8} 
-              className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none resize-none text-gray-900" 
+              className="w-full px-4 py-2 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none resize-none text-gray-900" 
               placeholder="Ceritakan tentang peternakan Anda..." 
             />
           </div>
@@ -123,7 +123,7 @@ export default function AboutClient({ initialAbout }: { initialAbout: About | nu
              <button
                 type="submit"
                 disabled={isSaving}
-                className="px-8 py-3 text-sm font-bold text-white bg-amber-600 rounded-xl hover:bg-amber-700 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
+                className="px-8 py-3 text-sm font-bold text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
               >
                 {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                 {isSaving ? "Menyimpan..." : "Simpan Perubahan"}
@@ -134,4 +134,3 @@ export default function AboutClient({ initialAbout }: { initialAbout: About | nu
     </div>
   );
 }
-

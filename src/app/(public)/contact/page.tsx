@@ -10,7 +10,7 @@ export default async function ContactPage() {
   return (
     <main className="flex-grow bg-white">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[50vh] flex items-center justify-center bg-gradient-to-br from-orange-600 to-amber-600 px-4 py-20 text-white">
+      <section className="relative w-full min-h-[50vh] flex items-center justify-center bg-gradient-to-br from-emerald-600 to-green-500 px-4 py-20 text-white">
         <div className="max-w-5xl mx-auto text-center space-y-6 z-10">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
             Hubungi Kami
@@ -29,8 +29,8 @@ export default async function ContactPage() {
             {/* Contact Info Cards */}
             <div className="lg:col-span-2 space-y-6">
               {/* Address Card */}
-              <div className="bg-gradient-to-br from-orange-50 to-amber-50 p-8 rounded-3xl shadow-md hover:shadow-lg transition-all duration-300 border border-orange-100 hover:-translate-y-1">
-                <div className="w-14 h-14 bg-orange-600 text-white rounded-2xl flex items-center justify-center mb-5">
+              <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-8 rounded-3xl shadow-md hover:shadow-lg transition-all duration-300 border border-emerald-100 hover:-translate-y-1">
+                <div className="w-14 h-14 bg-emerald-600 text-white rounded-2xl flex items-center justify-center mb-5">
                   <MapPin className="w-7 h-7" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
