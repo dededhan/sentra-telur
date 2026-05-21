@@ -126,21 +126,12 @@ export default async function ContactPage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {farmImages.map((img) => (
-                <div key={img.id} className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group border border-gray-100 flex flex-col h-full">
-                  <div className="aspect-[4/3] bg-gray-100 relative overflow-hidden flex-shrink-0">
-                    <img 
-                      src={img.imageUrl} 
-                      alt={img.caption || "Lokasi Peternakan BANG TELOR"} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                    />
-                  </div>
-                  {img.caption && (
-                    <div className="p-5 border-t border-gray-50 flex-grow flex items-center justify-center">
-                      <p className="text-gray-700 font-semibold text-center text-sm md:text-base leading-relaxed">
-                        {img.caption}
-                      </p>
-                    </div>
-                  )}
+                <div key={img.id} className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group border border-gray-100 aspect-[4/3] relative">
+                  <img 
+                    src={img.imageUrl} 
+                    alt={img.caption || "Lokasi Peternakan BANG TELOR"} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
                 </div>
               ))}
             </div>
@@ -149,17 +140,13 @@ export default async function ContactPage() {
       </section>
 
       {/* 3. CUSTOM LARGE CARD SECTION */}
-      <section className="py-20 px-4 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative w-full rounded-[40px] overflow-hidden shadow-2xl min-h-[450px] bg-gray-100">
-            {/* Background Image (Customizable by admin) */}
-            <img 
-              src={settings?.contactCardImage || "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&q=80&w=1920"} 
-              alt="Farm Banner" 
-              className="absolute inset-0 w-full h-full object-cover" 
-            />
-          </div>
-        </div>
+      <section className="w-full relative min-h-[450px] md:min-h-[550px] bg-gray-100 overflow-hidden border-t border-gray-100">
+        {/* Background Image (Customizable by admin) */}
+        <img 
+          src={settings?.contactCardImage || "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&q=80&w=1920"} 
+          alt="Farm Banner" 
+          className="absolute inset-0 w-full h-full object-cover" 
+        />
       </section>
     </main>
   );
