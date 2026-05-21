@@ -133,7 +133,7 @@ export default async function ContactPage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {farmImages.map((img) => (
-                <div key={img.id} className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group border border-gray-100 aspect-[4/3] relative">
+                <div key={img.id} className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group border border-gray-100 aspect-[2/3] relative">
                   <img 
                     src={img.imageUrl} 
                     alt={img.caption || "Lokasi Peternakan BANG TELOR"} 
@@ -149,7 +149,7 @@ export default async function ContactPage() {
       {/* 3. CUSTOM LARGE CARD SECTION */}
       <section className="py-20 px-4 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto">
-          <div className="relative w-full rounded-[40px] overflow-hidden shadow-2xl min-h-[450px] bg-gray-100">
+          <div className="relative w-full rounded-[40px] overflow-hidden shadow-2xl aspect-[21/10] md:aspect-[21/9] bg-gray-100">
             {/* Background Image (Customizable by admin) */}
             <img 
               src={settings?.contactCardImage || "https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?auto=format&fit=crop&q=80&w=1920"} 
