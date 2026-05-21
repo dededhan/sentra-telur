@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "5mb",
     },
+    // Menghindari error pooler Supabase (EMAXCONNSESSION) saat static prerender
+    workerThreads: false,
+    cpus: 1,
   },
 };
 

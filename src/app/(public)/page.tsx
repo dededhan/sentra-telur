@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import AboutSnippet from "@/components/AboutSnippet";
 import PartnerSlider from "@/components/PartnerSlider";
 import FAQSection from "@/components/FAQSection";
